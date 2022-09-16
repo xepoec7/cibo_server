@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content_block %}
+
+<main>
+    <div class="container">
+        <div class="row text-center justify-content-center">
+            <div class="col-8 menu-title-box">
+                <h1 class="text-uppercase">{% trans "Speisekarte" %}</h1>
+                <br>
+                <hr>
+                <p class="menu-second-title">{% trans "Wir bringen die besten Zutaten auf Ihrem Teller" %}</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-8">
+                {% if categories %}
+                    <ul class="nav nav-pills justify-content-center">
+                        {% for cat in categories %}
+                            <li class="nav-item">
+                                <a href="{{cat.id}}" class="nav-link menu-link {% if cat.name == 'Pizza' %}active{% endif %}">{{cat.name}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row menu-body"></div>
+    </div>
+</main>
+
+{% endblock content_block %}
+
+{% block script_block %}
+    <script src="{% static 'js/menu.js' %}"></script>
+{% endblock script_block %}
+
+<!-- https://dribbble.com/shots/5640147-Steakhouse-Homepage?utm_source=Pinterest_Shot&utm_campaign=patyapindo&utm_content=Steakhouse+Homepage&utm_medium=Social_Share -->

@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block nav_block %}
+<!-- specific navigation for home page -->
+<li class="nav-item"><a href="#about" class="nav-link">Über Uns</a></li>
+<li class="nav-item"><a href="#dishes" class="nav-link">Gerichte</a></li>
+<li class="nav-item"><a href="#location" class="nav-link">Wo wir sind</a></li>
+{% endblock nav_block %}
+
+{% block content_block %}
+<!-- Hero-->
+<header class="hero" id="home">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="hero-text col-12 text-center">
+                <h1 class="hero-title text-uppercase">{% trans page.hero_text %}</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-6 text-center">
+                    <a href="{{page.hero_btn_url}}" class="btn btn-outline-warning btn-lg">{% trans page.hero_btn_text %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- About Us-->
+<section id="about" class="sec hidden">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 col-lg-6">
+                {% if page.about_us_img %}
+                    <img src="{% static page.about_us_img.url %}" class="img-fluid" height="100">
+                {% else %}
+                    <img src="{% static 'img/pizzeria.jpg' %}" alt="pizzeria" class="img-fluid" height="100">
+                {% endif %}
+            </div>
+            <div class="col-lg-2"></div>
+            <div class="col-12 col-md-6 col-lg-4 text-end padd-left-small">
+                <h3 class="cursive-title">Cibo Colorato</h3>
+                <h2 class="text-uppercase">Über Uns</h2>
+                <br>
+                <p>{% trans page.about_us %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="chef" class="sec hidden">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 col-lg-4 padd-right-small">
+                <h3 class="cursive-title">Pizza Chef</h3>
+                <h2 class="text-uppercase">{{ page.chef_name }}</h2>
+                <br>
+                <p>{% trans page.chef_desc %}</p>
+                <br>
+                <figure class="text-end">
+                    <blockquote class="blockquote"><p>"{% trans page.chef_quote %}"</p></blockquote>
+                    <figcaption class="blockqoute-footer">{{ page.chef_name }}</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+            <div class="col-12 col-md-6 col-lg-6">
+                {% if page.chef_img %}
+                    <img src="page.chef_img" alt="chef" class="img-fluid" height="100">
+                {% else %}
+                    <img src="{% static 'img/chef.jpg' %}" alt="chef" class="img-fluid" height="100">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Dishes -->
+<section id="dishes" class="sec hidden">
+    <div class="container">
+        <div class="row marg-down">
+            <div class="col-12 col-md-6 col-lg-6 text-end padd-right">
+                <h3 class="cursive-title">Discover</h3>
+                <h2 class="text-uppercase">Unsere Gerichte</h2>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+                <p>{% trans page.dishes_desc %}</p>
+            </div>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 col-lg-6 text-end">
+                {% if page.pizza_img %}
+                    <img src="{% static page.pizza_img %}" alt="pizza" id="img-pizza" class="img-fluid">
+                {% else %}
+                    <img src="{% static 'img/pizza.png' %}" class="img-fluid" id="img-pizza">
+                {% endif %}
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+                <h2 class="cursive-title">Pizza</h2>
+                <p>{% trans page.pizza_desc %}</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <img src="{% static 'img/trail-right.png' %}" class="img-fluid hidden" id="trail-right">
+            </div>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 col-lg-6 text-end">
+                <h2 class="cursive-title">Panino Inpasto Pizza</h2>
+                <p>{% trans page.panino_desc %}</p>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+                {% if page.panino_img %}
+                    <img src="{% static page.panino_img %}" alt="panino" class="img-fluid" id="img-panino">
+                {% else %}
+                    <img src="{% static 'img/panino.png' %}" class="img-fluid" id="img-panino">
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-center">
+                <img src="{% static 'img/trail-left.png' %}" class="img-fluid hidden" id="trail-left">
+            </div>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 col-lg-6 text-center">
+                {% if page.desert_img %}
+                    <img src="{% static page.desert_img %}" alt="desert" class="img-fluid" id="img-desert">
+                {% else %}
+                    <img src="{% static 'img/desert.png' %}" class="img-fluid" id="img-desert">
+                {% endif %}
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <h2 class="cursive-title">Nachspeise</h2>
+                <p>{% trans page.desert_desc %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- location -->
+<section id="location" class="sec hidden">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="text-uppercase">wo wir sind</h1>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <iframe style="filter: invert(90%)" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2658.750871114026!2d16.384688614435774!3d48.21141435399635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476d077f26c5aec5%3A0x9debc392c5263b06!2sCibo%20Colorato!5e0!3m2!1sde!2sat!4v1662846588490!5m2!1sde!2sat" 
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content_block %}
+
+{% block script_block %}
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock script_block %}

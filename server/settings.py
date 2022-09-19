@@ -24,7 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'dlnb9h2k8s@+*n1+o@=jm52g9%0(z4s6^udp05tvb#2l^*-0(2'
+"""
+try:
+    SECRET_KEY = os.environ["SECRET_KEY"]
+except KeyError as e:
+    raise RuntimeError("Could not find a SECRET_KEY in environment") from e
+"""
+SECRET_KEY = '0263e6e312ada8f4c169538a4b9f2f739d6c13c896d89236b22b7650eee230b2cb5923e4167ed25e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -86,8 +92,12 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': "cibo_db",
+        'USER': 'user',
+        'PASSWORD': 'Toor171187!',
+        'HOST': '127.0.0.1',
+        'PORT': '3306'
     }
 }
 
@@ -170,7 +180,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'frontend/static'),
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = "/var/www/cibocolorato/static"
 
 
 # Media files 
@@ -180,3 +190,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+
+# HSTS
+SECURE_HSTS_SECONDS = 2592000
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")

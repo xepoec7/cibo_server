@@ -141,18 +141,7 @@ def invoice_items(request, inv_id):
 
 
 
-@api_view(['POST'])
-def invoice_paid(request):
-    """
-    Set invoice to paid
-    """
-    invoice = Invoice.objects.get(pk=request.data['id'])
-    if invoice:
-        serializer = InvoiceSerializer(invoice, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_200_OK)
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 
 # NEW
@@ -168,3 +157,16 @@ def open_invoices(request, shop_id):
         serializer = InvoiceSerializer(invoices, context=serializer_context, many=True)
         return Response(serializer.data)
     raise Http404
+
+@api_view(['GET'])
+def invoice_paid(request, invoice_id):
+    """
+    SEt invoice to paid
+    """
+    invoice = Invoice.objects.get(pk=invoice_id)
+    if invoice:
+        invoice.status = 'D'
+        invoice.paid = True
+        invoice.save()
+        return Response(status=status.HTTP_200_OK)
+    return Response(status=status.HTTP_400_BAD_REQUEST)

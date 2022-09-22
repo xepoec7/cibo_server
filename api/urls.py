@@ -18,7 +18,8 @@ urlpatterns = [
     path('invoice/item/add/<int:table>', views.add_to_invoice),
     path('invoice/table/<int:table>', views.invoice_by_table),
     path('invoice/items/<int:inv_id>', views.invoice_items),
-    path('invoice/paid/', views.invoice_paid),
+    
     # NEW
     path('invoice/shop/<int:shop_id>', views.open_invoices),
+    path('invoice/paid/<int:invoice_id>', views.invoice_paid),
 ]

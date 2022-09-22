@@ -47,7 +47,7 @@ class InvoiceSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Invoice
-        fields = ['id', 'client', 'employee', 'created', 'total', 'cash', 'status', "paid", "items",]
+        fields = ['id', 'client', 'employee', 'created', 'due_time', 'total', 'cash', 'status', "paid", "items",]
 
     def create(self, validated_data):
         return Invoice.objects.create(**validated_data)

@@ -1,13 +1,14 @@
 from queue import Empty
 from unicodedata import category
 from django.contrib.auth.models import User, Group
+from django.db.models import Q
 from rest_framework import viewsets, permissions, status
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from django.http import Http404
 
-from api.models import Category, Invoice, InvoiceItem, Product, Table
+from api.models import Category, Invoice, InvoiceItem, Product
 from .serializers import CategorySerializer, InvoiceItemSerializer, InvoiceSerializer, ProductSerializer, UserSerializer, GroupSerializer
 
 
@@ -152,3 +153,18 @@ def invoice_paid(request):
             serializer.save()
             return Response(status=status.HTTP_200_OK)
     return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+# NEW
+
+@api_view(['GET'])
+def open_invoices(request, shop_id):
+    """
+    Retrieve all 'OPEN' or 'ACCEPTED' invoices
+    """
+    invoices = Invoice.objects.filter(Q(status='O') & Q(shop=shop_id) | Q(status='A') & Q(shop=shop_id))
+    if invoices:
+        serializer_context = {'request': request,}
+        serializer = InvoiceSerializer(invoices, context=serializer_context, many=True)
+        return Response(serializer.data)
+    raise Http404

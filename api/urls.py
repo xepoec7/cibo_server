@@ -19,4 +19,6 @@ urlpatterns = [
     path('invoice/table/<int:table>', views.invoice_by_table),
     path('invoice/items/<int:inv_id>', views.invoice_items),
     path('invoice/paid/', views.invoice_paid),
+    # NEW
+    path('invoice/shop/<int:shop_id>', views.open_invoices),
 ]

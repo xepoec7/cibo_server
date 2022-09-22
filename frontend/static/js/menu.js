@@ -5,7 +5,7 @@ $(document).ready(function () {
 $('.menu-link').click(function(e) {
     e.preventDefault();
     var cat_id = $(this).attr('href');
-    $('.active').removeClass('active');
+    $('.menu-link.active').removeClass('active');
     $(this).addClass('active');
     getData(cat_id);
 });

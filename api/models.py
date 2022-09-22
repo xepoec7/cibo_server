@@ -22,22 +22,46 @@ class Product(models.Model):
         return self.name
 
 
-class Table(models.Model):
-    name = models.CharField(max_length=15)
-    table_num = models.PositiveSmallIntegerField()
-    pos_x = models.IntegerField(blank=True, null=True)
-    pos_y = models.IntegerField(blank=True, null=True)
-    reserved = models.BooleanField(blank=True, default=False)
+class Shop(models.Model):
+    name = models.CharField(max_length=30)
+    address = models.CharField(max_length=80)
+    zip_code = models.CharField(max_length=8)
+    city = models.CharField(max_length=55)
 
     def __str__(self) -> str:
         return self.name
 
 
+
+class Client(models.Model):
+    CLIENT_TYPES = [
+        ("tbl", "Tisch"),
+        ("taw", "Take Away"),
+        ("tel", "Telefonisch"),
+        ("onl", "Online"),
+    ]
+    client_type = models.CharField(max_length=3, choices=CLIENT_TYPES)
+    name = models.CharField(max_length=80)
+
+    def __str__(self) -> str:
+        return self.name
+
+
+
 class Invoice(models.Model):
-    table = models.ForeignKey("Table", on_delete=models.SET_NULL, null=True)
+    STATUSES = [
+        ('O', 'Open'),
+        ('A', 'Accepted'),
+        ('C', 'Canceled'),
+        ('D', 'Done'),
+    ]
+    shop = models.ForeignKey('Shop', on_delete=models.SET_NULL, null=True)
+    client = models.ForeignKey("Client", on_delete=models.SET_NULL, null=True)
     created = models.DateTimeField(auto_now=True, blank=True)
+    due_time = models.DateTimeField(blank=True, null=True)
     employee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     total = models.DecimalField(max_digits=8, decimal_places=2, blank=True, default=0.00)
+    status = models.CharField(max_length=1, choices=STATUSES, default="O", blank=True)
     cash = models.DecimalField(max_digits=8, decimal_places=2, blank=True, default=0.00)
     paid = models.BooleanField(blank=True, default=False)
 
@@ -46,7 +70,7 @@ class Invoice(models.Model):
 
 
 class InvoiceItem(models.Model):
-    invoice = models.ForeignKey("Invoice", on_delete=models.CASCADE)
+    invoice = models.ForeignKey("Invoice", related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey("Product", on_delete=models.CASCADE)
     qty = models.IntegerField(blank=True, default=1)
     sum = models.DecimalField(max_digits=8, decimal_places=2, blank=True, default=0.00)

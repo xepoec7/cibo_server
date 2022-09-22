@@ -20,7 +20,7 @@
                     <ul class="nav nav-pills justify-content-center">
                         {% for cat in categories %}
                             <li class="nav-item">
-                                <a href="{{cat.id}}" class="nav-link menu-link {% if cat.name == 'Pizza' %}active{% endif %}">{{cat.name}}</a>
+                                <a href="{{cat.id}}" class="nav-link menu-link {% if cat.id == 1 %}active{% endif %}">{{cat.name}}</a>
                             </li>
                         {% endfor %}
                     </ul>

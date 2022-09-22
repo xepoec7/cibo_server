@@ -32,13 +32,22 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'category', 'name', 'ingredient', 'price',]
 
 
+class InvoiceItemSerializer(serializers.HyperlinkedModelSerializer):
+    product = serializers.StringRelatedField()
+
+    class Meta:
+        model = InvoiceItem
+        fields = ['product', 'qty', 'sum',]
+
+
 class InvoiceSerializer(serializers.HyperlinkedModelSerializer):
-    table = serializers.StringRelatedField()
+    client = serializers.StringRelatedField()
     employee = serializers.StringRelatedField()
+    items = InvoiceItemSerializer(many=True)
 
     class Meta:
         model = Invoice
-        fields = ['id', 'table', 'employee', 'created', 'total', 'cash', 'paid',]
+        fields = ['id', 'client', 'employee', 'created', 'total', 'cash', 'status', "paid", "items",]
 
     def create(self, validated_data):
         return Invoice.objects.create(**validated_data)
@@ -48,12 +57,3 @@ class InvoiceSerializer(serializers.HyperlinkedModelSerializer):
         instance.paid = validated_data.get('paid')
         instance.save()
         return instance
-
-
-class InvoiceItemSerializer(serializers.HyperlinkedModelSerializer):
-    invoice = serializers.PrimaryKeyRelatedField(read_only=True)
-    product = ProductSerializer()
-
-    class Meta:
-        model = InvoiceItem
-        fields = ['invoice','product', 'qty', 'sum',]

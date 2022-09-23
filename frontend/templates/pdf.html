@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    
+    <title>Cibo Colorato Menu</title>
+    <style>
+        body {
+            font-size: 12px;
+            font-family: 'Helvetica';
+        }
+        .cursive-title {
+            font-family: 'Dancing Script', cursive;
+            color: #e6a900;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-12 text-center">
+            <img src="{% static 'img/android-chrome-192x192.png' %}" alt="" class="img-fluid">
+            <br><br>
+            <h1 class="cursive-title">Unsere Speisekarte für mitnehmen</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-center">
+            <p>www.cibocolorato.com | 0664 / 999 45 222</p>
+        </div>
+    </div>
+    <br>
+    {% if categories and products %}
+        {% for category in categories %}
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th colspan="2">{{category.name}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    {% if product.category == category %}
+                        <tr>
+                            <td>
+                                {{ product.name }} ({{ product.allergens }})
+                                <br>
+                                <small>{{ product.ingredient }}</small>
+                            </td>
+                            <td class="text-end">{{ product.price }} €</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <br><br>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

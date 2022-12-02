@@ -15,6 +15,17 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ('name', )
 
 
+class OrderItemTabularInLine(admin.TabularInline):
+    model = OrderItem
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    inlines = [OrderItemTabularInLine,]
+    list_display = ['id', 'client', 'created', 'status',]
+    search_fields = ('id', 'client',)
+
+
 class ItemsTabularInline(admin.TabularInline):
     model = InvoiceItem
 
@@ -26,12 +37,6 @@ class InvoiceAdmin(admin.ModelAdmin):
     list_filter = ['paid', 'client', ]
     search_fields = ('id', )
 
-
-@admin.register(Shop)
-class ShopAdmin(admin.ModelAdmin):
-    list_display = ['name', 'zip_code', 'address', 'city']
-    list_filter = ['zip_code',]
-    search_fields = ('address', 'city',)
 
 
 @admin.register(Client)

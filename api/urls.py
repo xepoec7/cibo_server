@@ -21,5 +21,13 @@ urlpatterns = [
     
     # NEW
     path('invoice/shop/<int:shop_id>', views.open_invoices),
+    path('invoice/accepted/<int:invoice_id>', views.invoice_accepted),
     path('invoice/paid/<int:invoice_id>', views.invoice_paid),
+    
+    # -----------------------------------------------------------------------------
+    path('order/', views.order_list),
+    path('order/<int:pk>/', views.order_detail),
+    path('order/accept/<int:pk>/', views.order_accept),
+    path('invoice/', views.invoice_list),
+    path('invoice/paidd/<int:pk>', views.invoice_paidd),
 ]

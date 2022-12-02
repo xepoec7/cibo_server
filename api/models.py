@@ -22,22 +22,11 @@ class Product(models.Model):
         return self.name
 
 
-class Shop(models.Model):
-    name = models.CharField(max_length=30)
-    address = models.CharField(max_length=80)
-    zip_code = models.CharField(max_length=8)
-    city = models.CharField(max_length=55)
-
-    def __str__(self) -> str:
-        return self.name
-
-
-
 class Client(models.Model):
     CLIENT_TYPES = [
         ("tbl", "Tisch"),
         ("taw", "Take Away"),
-        ("tel", "Telefonisch"),
+        ("tel", "Phone"),
         ("onl", "Online"),
     ]
     client_type = models.CharField(max_length=3, choices=CLIENT_TYPES)
@@ -48,25 +37,44 @@ class Client(models.Model):
 
 
 
-class Invoice(models.Model):
-    STATUSES = [
+class Order(models.Model):
+    STATUS = [
         ('O', 'Open'),
         ('A', 'Accepted'),
         ('C', 'Canceled'),
         ('D', 'Done'),
     ]
-    shop = models.ForeignKey('Shop', on_delete=models.SET_NULL, null=True)
-    client = models.ForeignKey("Client", on_delete=models.SET_NULL, null=True)
+    client = models.ForeignKey('Client', on_delete=models.SET_NULL, null=True)
     created = models.DateTimeField(auto_now=True, blank=True)
     due_time = models.DateTimeField(blank=True, null=True)
-    employee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    status = models.CharField(max_length=1, choices=STATUS, default='O', blank=True)
+
+    def __str__(self) -> str:
+        return str(self.id)
+
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey("Order", related_name='orderitems', on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    qty = models.IntegerField(blank=True, default=1)
+    sum = models.DecimalField(max_digits=8, decimal_places=2, blank=True, default=0.00)
+
+    def __str__(self) -> str:
+        return f'{self.product} x{self.qty}'
+
+
+
+
+class Invoice(models.Model):
+    client = models.ForeignKey("Client", on_delete=models.SET_NULL, null=True)
+    created = models.DateTimeField(auto_now=True, blank=True)
     total = models.DecimalField(max_digits=8, decimal_places=2, blank=True, default=0.00)
-    status = models.CharField(max_length=1, choices=STATUSES, default="O", blank=True)
     cash = models.DecimalField(max_digits=8, decimal_places=2, blank=True, default=0.00)
     paid = models.BooleanField(blank=True, default=False)
 
     def __str__(self) -> str:
-        return f'Rechnung nummer: {self.id}'
+        return str(self.id)
 
 
 class InvoiceItem(models.Model):

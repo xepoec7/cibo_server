@@ -1,0 +1,111 @@
+@font-face {
+  font-family: Dancing Script;
+  src: url(./assets/fonts/DancingScript-Bold.ttf);
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background-color: #171717!important;
+  color: #fff!important;
+}
+main {
+  margin-top: 100px;
+  margin-bottom: 150px;
+}
+section {
+  margin-top: 400px;
+}
+
+.logo-font {
+  font-family: 'Dancing Script', cursive;
+  font-size: 32px!important;
+  font-weight: 700;
+  color: #e6a900!important;
+}
+.navbarVisible {
+  background-color: black;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+.navbarTransparent {
+  background-color: transparent;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+.navbar-nav .nav-link.active, .navbar-nav .show > .nav-link {
+  border-bottom: 2px solid #e6a900;
+  padding-bottom: 3px;
+}
+
+.hero {
+  margin-top: 54px;
+  background-image: url("./assets/img/hero.png");
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.hero-text {
+  position: relative;
+  height: 300px;
+}
+.hero-title {
+  margin: 0;
+  position: absolute;
+  top: 65%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  text-shadow: 2px 2px #333;
+}
+
+.cursive-title {
+  font-family: 'Dancing Script', cursive;
+  color: #e6a900;
+}
+.hidden {
+  opacity: 0;
+  transform: translate(0, 10vh);
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+.unHide {
+  opacity: 100;
+  -webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  -o-transition: all 2s ease;
+  transition: all 2s ease;
+}
+.rotate {
+  transform: rotate(180deg);
+}
+
+.gmap {
+  filter: invert(90%);
+}
+
+.menu-header {
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+.menu-item {
+  margin-bottom: 5px;
+}
+
+.row-space-top {
+  margin-top: 30px;
+}
+.left-right-margin-sm {
+  margin-left: 15px;
+  margin-right: 15px;
+}

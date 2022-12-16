@@ -8,6 +8,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import TablePage from './pages/TablePage';
 import DetailsPage from './pages/DetailsPage';
 import CartPage from './pages/CartPage';
+import OrderCompletePage from './pages/OrderCompletePage';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path='/tableservice/:table' element={<TablePage />} />
           <Route path='/tableservice/product/' element={<DetailsPage />} />
           <Route path='/tableservice/cart/' element={<CartPage />} />
+          <Route path='/tableservice/order/' element={<OrderCompletePage />} />
         </Routes>
       </BrowserRouter>
     );

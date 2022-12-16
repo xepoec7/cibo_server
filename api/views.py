@@ -31,16 +31,21 @@ def order_table_new(request):
     try:
         data = request.data
         client = Client.objects.get(name=data['client'])
-        if not client.DoesNotExist:
+        if client:
             order = Order(client=client)
             order.save()
             for item in request.data['items']:
-                ord_item = OrderItem(order=order, product=item['product'], qty=item['qty'], sum=item['sum'])
-                ord_item.save()
+                product = Product.objects.get(pk=item['product']['id'])
+                if product:
+                    ord_item = OrderItem(order=order, product=product, qty=item['qty'], sum=item['sum'])
+                    ord_item.save()
+                else:
+                    return Response(status=status.HTTP_400_BAD_REQUEST)
             return Response(status=status.HTTP_201_CREATED)
     except Exception as exp:
         print(exp)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+    raise Http404
 
 
 @csrf_exempt

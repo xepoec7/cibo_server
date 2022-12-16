@@ -4,11 +4,20 @@ import { Card, CardBody, Col, Row } from "reactstrap";
 import { TfiShoppingCart, TfiShoppingCartFull } from 'react-icons/tfi';
 import { BsChevronLeft } from 'react-icons/bs';
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const HeaderCartComponent = (props) => {
 
-    const cart = new Cart();
+    const _cart = new Cart();
+    const [cart, setCart] = useState(_cart);
     const navigate = useNavigate();
+
+
+    useEffect(() => {
+        setCart(cart);
+    }, [_cart, ])
+
     
     let cartEmptyFull = cart.items.length > 0 ? <a href="/tableservice/cart/"><TfiShoppingCartFull className="text-warning"/></a> : <TfiShoppingCart />;
 
@@ -18,7 +27,7 @@ const HeaderCartComponent = (props) => {
             <CardBody>
                 <Row xs="3">
                     <Col>
-                        {props.hasBack == true ? <BsChevronLeft onClick={() => navigate(-1)} style={{fontSize: "32px"}} /> : null}
+                        {props.hasBack === true ? <BsChevronLeft onClick={() => navigate(-1)} style={{fontSize: "32px"}} /> : null}
                     </Col>
                     <Col>
                         <h3 className="cursive-title text-center">

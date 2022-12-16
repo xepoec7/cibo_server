@@ -66,7 +66,7 @@ export default class Cart {
 
 
     // Method for removing cart object from localStorage
-    removeCart() {
+    destroyCart() {
         localStorage.removeItem('cart');
     }
 

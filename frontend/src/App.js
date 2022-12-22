@@ -5,10 +5,10 @@ import Layout from './layouts/Layout';
 import HomePage from './pages/HomePage';
 import MenuPage from './pages/MenuPage';
 import NotFoundPage from './pages/NotFoundPage';
-import TablePage from './pages/TablePage';
-import DetailsPage from './pages/DetailsPage';
+import OrderLayout from './layouts/OrderLayout';
+import OrderPage from './pages/OrderPage';
+import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
-import OrderCompletePage from './pages/OrderCompletePage';
 
 
 function App() {
@@ -19,13 +19,14 @@ function App() {
           <Route path='/' element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path='/menu' element={<MenuPage />} />
-            
             <Route path='*' element={<NotFoundPage />} />
           </Route>
-          <Route path='/tableservice/:table' element={<TablePage />} />
-          <Route path='/tableservice/product/' element={<DetailsPage />} />
-          <Route path='/tableservice/cart/' element={<CartPage />} />
-          <Route path='/tableservice/order/' element={<OrderCompletePage />} />
+          
+          <Route path='/order' element={<OrderLayout />} >
+            <Route index element={<OrderPage />} />
+            <Route path='product/' element={<ProductPage />} />
+            <Route path='cart/' element={<CartPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     );

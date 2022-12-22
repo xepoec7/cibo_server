@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { transitions, positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
+import CartState from './context/Cart/CartState';
 
 const alertOptions = {
   position: positions.BOTTOM_CENTER,
@@ -19,7 +20,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AlertProvider template={AlertTemplate} {...alertOptions}>
-      <App />
+      <CartState>
+        <App />
+      </CartState>
     </AlertProvider>
   </React.StrictMode>
 );

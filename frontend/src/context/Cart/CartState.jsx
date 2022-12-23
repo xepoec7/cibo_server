@@ -26,8 +26,8 @@ const CartState = ({ children }) => {
 
 
     // Function to handle when an item is added from the store into the Cart
-    const addToCart = (payload) => {
-        dispatch({ type: "ADD_TO_CART", payload });
+    const addToCart = (payload, qty=1) => {
+        dispatch({ type: "ADD_TO_CART", payload, qty});
     };
 
 

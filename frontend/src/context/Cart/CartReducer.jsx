@@ -41,7 +41,7 @@ const CartReducer = (state, action) => {
             if (!state.cartItems.find((item) => item.id === action.payload.id)) {
                 state.cartItems.push({
                     ...action.payload,
-                    quantity: 1,
+                    quantity: action.qty,
                 });
             }
 

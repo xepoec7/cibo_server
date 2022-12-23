@@ -7,7 +7,6 @@ const CartItemsComponent = () => {
 
     const { cartItems, removeFromCart, decrease, increase, handleCheckout, total } = useContext(CartContext);
 
-    console.log(total);
     
     return(
         <div className="row-space-top">
@@ -19,19 +18,19 @@ const CartItemsComponent = () => {
                             <Col className="col-9">
                                 <Row xs="2">
                                     <Col className="col-10">{item.name}</Col>
-                                    <Col className="col-2 text-end"><Button onClick={() => removeFromCart(item)} color="danger" close></Button></Col>
+                                    <Col className="col-2 text-end"><Button onClick={() => removeFromCart(item)} style={{color: "white"}} close></Button></Col>
                                 </Row>
                                 <Row xs="2" style={{marginTop: "10px"}}>
                                     <Col className="col-2">{item.time}</Col>
                                     <Col className="col-10 text-end">
-                                        <Button onClick={() => decrease(item)} size="sm">-</Button>
+                                        <Button onClick={() => decrease(item)} size="sm" style={{marginRight: "5px"}}>-</Button>
                                         {item.quantity}
-                                        <Button onClick={() => increase(item)} size="sm">+</Button>
+                                        <Button onClick={() => increase(item)} size="sm" style={{marginLeft: "5px"}}>+</Button>
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col className="text-start">
-                                        {formatCurrency(total)} €
+                                        {formatCurrency(item.price * item.quantity)}
                                     </Col>
                                 </Row>
                             </Col>

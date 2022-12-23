@@ -39,9 +39,19 @@ const ActionComponent = (props) => {
                                     size="sm"
                                     color="warning"
                                     outline
-                                    onClick={() => addToCart(product)}
+                                    onClick={() => addToCart(product, qty)}
                                 >
                                     <TfiShoppingCart /> Einfügen
+                                </Button>
+                            )}
+                            {isInCart() && (
+                                <Button
+                                size="sm"
+                                color="warning"
+                                outline
+                                onClick={() => addToCart(product, qty)}
+                                >
+                                    <TfiShoppingCart /> Nochmal Einfügen
                                 </Button>
                             )}
                         </CardBody>

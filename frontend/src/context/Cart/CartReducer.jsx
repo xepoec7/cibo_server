@@ -6,6 +6,7 @@ import {
     DECREASE,
     CHECKOUT,
     CLEAR,
+    CHANGE_CLIENT,
 } from './CartTypes';
 
 
@@ -98,6 +99,12 @@ const CartReducer = (state, action) => {
             return {
                 cartItems: [],
                 ...sumItems([]),
+            };
+
+
+        case CHANGE_CLIENT:
+            return {
+                client: action.payload,
             };
 
             

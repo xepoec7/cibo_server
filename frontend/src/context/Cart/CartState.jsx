@@ -18,6 +18,7 @@ const CartState = ({ children }) => {
         cartItems: storage,
         ...sumItems(storage),
         checkout: false,
+        client: 'online',
     };
 
     
@@ -61,6 +62,12 @@ const CartState = ({ children }) => {
     };
 
 
+    // Function to handle client change
+    const changeClient = (payload) => {
+        dispatch({ type: "CHANGE_CLIENT", payload });
+    };
+
+
     return (
         // Add the functions that have been defined above int to Context provider
         <CartContext.Provider
@@ -73,6 +80,7 @@ const CartState = ({ children }) => {
                 decrease,
                 handleCheckout,
                 clearCart,
+                changeClient,
                 ...state,
             }}
         >

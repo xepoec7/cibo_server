@@ -24,7 +24,6 @@ const CartTotalComponent = () => {
                             <tr>
                                 <td><b>Total</b></td>
                                 <td className="text-end"><b>{total} €</b></td>
-                                <td>{client}</td>
                             </tr>
                         </tbody>
                     </Table>

@@ -10,6 +10,9 @@ const storage = localStorage.getItem("cartItems")
 ? JSON.parse(localStorage.getItem("cartItems"))
 : [];
 
+const local_client = localStorage.getItem("client")
+? JSON.parse(localStorage.getItem("client"))
+: 'online';
 
 const CartState = ({ children }) => {
 
@@ -18,7 +21,7 @@ const CartState = ({ children }) => {
         cartItems: storage,
         ...sumItems(storage),
         checkout: false,
-        client: 'online',
+        client: local_client,
     };
 
     

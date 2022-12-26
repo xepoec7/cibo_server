@@ -24,6 +24,7 @@ function App() {
           
           <Route path='/order' element={<OrderLayout />} >
             <Route index element={<OrderPage />} />
+            <Route path=':client_params/' element={<OrderPage />} />
             <Route path='product/' element={<ProductPage />} />
             <Route path='cart/' element={<CartPage />} />
           </Route>

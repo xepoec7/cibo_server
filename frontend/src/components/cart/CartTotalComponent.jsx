@@ -7,11 +7,12 @@ import CartContext from "../../context/Cart/CartContext";
 
 const CartTotalComponent = () => {
 
-    const { total } = useContext(CartContext);
+    const { total, client, changeClient } = useContext(CartContext);
 
 
     const buttonHandler = () => {
-       
+        console.log("Clieckd");
+        changeClient('SSSS');
     }
 
     return (
@@ -23,6 +24,7 @@ const CartTotalComponent = () => {
                             <tr>
                                 <td><b>Total</b></td>
                                 <td className="text-end"><b>{total} €</b></td>
+                                <td>{client}</td>
                             </tr>
                         </tbody>
                     </Table>

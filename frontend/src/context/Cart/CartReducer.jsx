@@ -17,6 +17,13 @@ const Storage = (cartItems) => {
     );
 };
 
+const SaveClient = (data) => {
+    localStorage.setItem(
+        'client',
+        JSON.stringify(data)
+    );
+};
+
 
 // Export function to calculate the total price of the cart and the total quantity of the cart
 export const sumItems = (cartItems) => {
@@ -104,7 +111,9 @@ const CartReducer = (state, action) => {
 
         case CHANGE_CLIENT:
             return {
+                ...state,
                 client: action.payload,
+                ...SaveClient(action.payload),
             };
 
             

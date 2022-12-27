@@ -7,13 +7,22 @@ import CartContext from "../../context/Cart/CartContext";
 
 const CartTotalComponent = () => {
 
-    const { total, client, changeClient } = useContext(CartContext);
+    const { total, client, cartItems, handleCheckout } = useContext(CartContext);
+    const API = new Api();
+    const alert = useAlert();
 
 
-    const buttonHandler = () => {
-        console.log("Clieckd");
-        changeClient('SSSS');
-    }
+    const orderBtnHandler = () => {
+        let data = {client: client, items: cartItems};
+        API.sendOrder(data)
+            .then(() => {
+                handleCheckout();
+                alert.success("Ihre Bestellung ist zum Küche gesendet!");
+            })
+            .catch(() => {
+                alert.error("Auf fehler aufgetreten, bitte versuchen Sie noch einmal");
+            });
+    };
 
     return (
         <Card color="dark" inverse className="row-space-top">
@@ -28,7 +37,7 @@ const CartTotalComponent = () => {
                         </tbody>
                     </Table>
                     <div className="text-center">
-                        <Button onClick={() => buttonHandler()} block size="lg" color="warning">Bestellen</Button>
+                        <Button onClick={() => orderBtnHandler()} block size="lg" color="warning">Bestellen</Button>
                     </div>
                 </Container>
             </CardBody>

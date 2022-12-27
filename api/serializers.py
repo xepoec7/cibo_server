@@ -66,7 +66,7 @@ class OrderItemSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = OrderItem
-        fields = ['product', 'qty', 'sum',]
+        fields = ['product', 'qty',]
 
 
 

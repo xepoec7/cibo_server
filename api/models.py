@@ -13,7 +13,7 @@ class Category(models.Model):
 class Product(models.Model):
     category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=30, unique=True)
-    image = models.ImageField(upload_to='/product_images', blank=True, null=True)
+    image = models.ImageField(upload_to='product_images/', blank=True, null=True)
     allergens = models.CharField(max_length=30, null=True, blank=True)
     ingredient = models.TextField(blank=True, null=True) 
     price = models.DecimalField(max_digits=8, decimal_places=2)

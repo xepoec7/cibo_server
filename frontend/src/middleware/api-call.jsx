@@ -45,8 +45,8 @@ export default class Api {
         return this.init().get(`/category/${category_id}`);
     };
 
-    sendOrder = (cart) => {
-        return this.init().post('/order/new', cart);
+    sendOrder = (data) => {
+        return this.init().post('/order/', data);
     };
 
 }

@@ -13,7 +13,13 @@ const CartTotalComponent = () => {
 
 
     const orderBtnHandler = () => {
-        let data = {client: client, items: cartItems};
+        let items = [];
+        cartItems.map(item => {
+            let i = {product: item.id, qty: item.quantity};
+            items.push(i);
+        });
+        let data = {client: client, orderitems: items};
+        console.log(items);
         API.sendOrder(data)
             .then(() => {
                 handleCheckout();

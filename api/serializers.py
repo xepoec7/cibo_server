@@ -1,8 +1,8 @@
-from dataclasses import fields
+import decimal
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
-from api.models import Invoice, InvoiceItem, Product, Category, Order, OrderItem
+from api.models import Invoice, InvoiceItem, Product, Category, Order, OrderItem, Client
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -68,14 +68,24 @@ class OrderItemSerializer(serializers.HyperlinkedModelSerializer):
         model = OrderItem
         fields = ['product', 'qty',]
 
+    def create(self, validated_data):
+        order = validated_data['order']
+        product = validated_data['product']
+        order.total = decimal.Decimal(order.total) + decimal.Decimal(validated_data['qty'] * product.price)
+        order.save()
+        return OrderItem.objects.create(**validated_data)
 
 
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     client = serializers.StringRelatedField()
     orderitems = OrderItemSerializer(many=True)
-    created = serializers.DateTimeField(format="%d.%m.%Y %H:%M:%S")
+    created = serializers.DateTimeField(format="%d.%m.%Y %H:%M:%S", required=False)
 
     class Meta:
         model = Order
         fields = ['id', 'client', 'created', 'due_time', 'status', 'orderitems']
+
+    def create(self, validated_data):
+        print(validated_data)
+        return False

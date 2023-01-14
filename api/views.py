@@ -59,13 +59,19 @@ class OrderViewSet(viewsets.ViewSet):
 
     def create(self, request):
         """ Create new Order """
-        items_serializer = OrderItemSerializer(data=request.data, many=True)
-        if items_serializer.is_valid():
-            order = Order()
-            order.save()
-            items_serializer.save(order)
-            return Response(status=status.HTTP_201_CREATED)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        client_data = request.data['client']
+        client = Client.objects.get(name=client_data)
+        order = Order(client=client)
+        order.save()
+        data = request.data['orderitems']
+        for item in data:
+            item_serializer = OrderItemSerializer(data=item)
+            if item_serializer.is_valid():
+                product = Product.objects.get(pk=item['product'])
+                item_serializer.save(order=order, product=product)
+            else:
+                return Response(status=status.HTTP_502_BAD_GATEWAY)
+        return Response(status=status.HTTP_200_OK)
 
 
     @action(detail=True, methods=['GET'], name="Accept Order")

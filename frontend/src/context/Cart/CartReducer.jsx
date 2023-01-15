@@ -51,6 +51,11 @@ const CartReducer = (state, action) => {
                     ...action.payload,
                     quantity: action.qty,
                 });
+            } else {
+                let item = state.cartItems.find((item) => item.id === action.payload.id);
+                if (item) {
+                    item.quantity += action.qty;
+                }
             }
 
             return {

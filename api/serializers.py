@@ -1,21 +1,7 @@
 import decimal
-from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
-from api.models import Invoice, InvoiceItem, Product, Category, Order, OrderItem, Client
-
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'groups']
-
-
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Group
-        fields = ['url', 'name']
-
+from api.models import Invoice, InvoiceItem, Product, Category, Order, OrderItem
 
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):

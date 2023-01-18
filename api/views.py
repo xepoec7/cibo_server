@@ -76,12 +76,38 @@ class OrderViewSet(viewsets.ViewSet):
 
     @action(detail=True, methods=['GET'], name="Accept Order")
     def accept(self, request, pk=None):
-        """ Change Order status to Accepted """
+        """ 
+            Accepting Order 
+            it changes order status to accepted, looks for client if he has unpaid invoice
+            if client has unpaid invoice adds or changes quantity of item in invoice
+
+            Todo: Check when client is online
+        """
         queryset = Order.objects.all()
         order = get_object_or_404(queryset, pk=pk)
         order.status = 'A'
         order.save()
-        return Response(status=status.HTTP_202_ACCEPTED)
+        invoice = None
+        try:
+            invoice = Invoice.objects.get(client=order.client, paid=False)
+        except Invoice.DoesNotExist:
+            invoice = Invoice(client=order.client, total=order.total)
+            invoice.save()
+        try:
+            order_items = OrderItem.objects.filter(order=order)
+            for order_item in order_items:
+                invoice_items = InvoiceItem.objects.filter(invoice=invoice)
+                invoice_item = next((item for item in invoice_items if item.product == order_item.product), None)
+                if invoice_item is not None:
+                    invoice_item.qty += order_item.qty
+                    invoice_item.save()
+                else:
+                    invoice_item = InvoiceItem(invoice=invoice, product=order_item.product, qty=order_item.qty, sum=order_item.qty * order_item.product.price)
+                    invoice_item.save()
+        except Exception as exp:
+            print(exp)
+            return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
+        return Response(status=status.HTTP_200_OK)
 
 
 
@@ -116,7 +142,7 @@ class InvoiceViewSet(viewsets.ViewSet):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-    @action(detail=True, methods=['GET'], name='Paid')
+    @action(detail=True, methods=['PUT'], name='Paid')
     def paid(self, request, pk=None):
         """ Change Invoice to status Paid """
         queryset = Invoice.objects.all()

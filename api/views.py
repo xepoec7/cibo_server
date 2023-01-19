@@ -80,8 +80,6 @@ class OrderViewSet(viewsets.ViewSet):
             Accepting Order 
             it changes order status to accepted, looks for client if he has unpaid invoice
             if client has unpaid invoice adds or changes quantity of item in invoice
-
-            Todo: Check when client is online
         """
         queryset = Order.objects.all()
         order = get_object_or_404(queryset, pk=pk)
@@ -108,6 +106,15 @@ class OrderViewSet(viewsets.ViewSet):
             print(exp)
             return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
         return Response(status=status.HTTP_200_OK)
+
+
+    @action(detail=True, methods=['GET'], name='Status')
+    def status(self, request, pk=None):
+        """ Checking status of an Order """
+        queryset = Order.objects.all()
+        order = get_object_or_404(queryset, pk=pk)
+        return Response(order.status)
+
 
 
 

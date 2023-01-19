@@ -49,4 +49,8 @@ export default class Api {
         return this.init().post('/order/', data);
     };
 
+    statusOrder = (order_id) => {
+        return this.init().get(`/order/${order_id}/status`);
+    };
+
 }

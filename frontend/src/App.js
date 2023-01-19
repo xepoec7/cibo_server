@@ -9,6 +9,7 @@ import OrderLayout from './layouts/OrderLayout';
 import OrderPage from './pages/OrderPage';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
+import OrderCompletePage from './pages/OrderCompletePage';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             <Route path=':client_params/' element={<OrderPage />} />
             <Route path='product/' element={<ProductPage />} />
             <Route path='cart/' element={<CartPage />} />
+            <Route path='complete/' element={<OrderCompletePage />} />
           </Route>
         </Routes>
       </BrowserRouter>

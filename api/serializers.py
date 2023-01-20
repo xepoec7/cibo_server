@@ -1,7 +1,7 @@
 import decimal
 from rest_framework import serializers
 
-from api.models import Invoice, InvoiceItem, Product, Category, Order, OrderItem
+from api.models import Invoice, InvoiceItem, Product, Category, Order, OrderItem, Promo
 
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
@@ -75,3 +75,10 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
     def create(self, validated_data):
         print(validated_data)
         return False
+
+
+
+class PromoSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Promo
+        fields = ['title', 'start_date', 'end_date', 'code', 'used']

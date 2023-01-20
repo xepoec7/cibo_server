@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.response import Response
@@ -157,3 +158,45 @@ class InvoiceViewSet(viewsets.ViewSet):
         invoice.paid = True
         invoice.save()
         return Response(status=status.HTTP_202_ACCEPTED)
+
+
+
+class PromoViewSet(viewsets.ViewSet):
+    """ 
+    Promo ViewSet
+    """
+
+    def list(self, request):
+        """ List of all Promo Codes """
+        queryset = Promo.objects.all()
+        serializer = PromoSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+    def retrive(self, request, pk=None):
+        """ Details of one Promo """
+        queryset = Promo.objects.all()
+        promo = get_object_or_404(queryset, pk=pk)
+        serializer = PromoSerializer(promo)
+        return Response(serializer.data)
+
+    
+    def create(self, request):
+        """ Create new Promo Code """
+        serializer = PromoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
+
+
+    @action(detail=True, methods=['GET'], name="Check")
+    def check(self, request, code=None):
+        queryset = Promo.objects.all()
+        promo = get_object_or_404(queryset, code=code)
+        if promo.used:
+            return Response(status=status.HTTP_226_IM_USED, data="used")
+        if promo.end_date < datetime.datetime.now:
+            return Response(status=status.HTTP_406_NOT_ACCEPTABLE, data="expired")
+        serializer = PromoSerializer(promo)
+        return Response(status=status.HTTP_200_OK, data=serializer.data)

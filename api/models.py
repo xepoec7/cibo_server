@@ -102,6 +102,9 @@ class Promo(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     code = models.CharField(max_length=6, blank=True)
+    multiple = models.BooleanField(default=False, blank=True)
+    used = models.BooleanField(default=False, blank=True)
+    discount = models.CharField(max_length=10)
 
     def __str__(self) -> str:
         return self.title

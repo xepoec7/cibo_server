@@ -1,33 +1,27 @@
 import React from "react";
 import { Button, Card, CardBody, Col, Container, Row } from "reactstrap";
 import { useLocation, useNavigate } from "react-router-dom";
+import {SiCodechef} from 'react-icons/si';
 
 const OrderCompletePage = (props) => {
 
     const location = useLocation();
     const navigate = useNavigate();
-    const order = location.state.order;
+    const order_id = location.state.id;
 
-
-    let item_list = [];
-    for (let i = 0; i < order.items.length; i++) {
-        const item = order.items[i];
-        item_list.push(<tr key={item.product.id}>
-            <td>{i + 1}</td>
-            <td>{item.product.name}</td>
-            <td>{item.qty}</td>
-            <td>{item.sum} €</td>
-        </tr>);
-    }
 
     return (
-        <div>
+        <div className="row-space-top">
             <Container>
-                <Card>
+                <Card inverse color="dark">
                     <CardBody>
                         <Row>
-                            <Col>
-                                <h4>Ihre Bestellung würde zum Chef gesendet</h4>
+                            <Col className="text-center">
+                                <SiCodechef style={{fontSize: "7rem", color: "#ffc107"}} />
+                                <br /><br />
+                                <h4>Vielen Dank! Ihre Bestellung ist am Chef gesendet</h4>
+                                <br />
+                                <Button onClick={() => {navigate("/order/")}} size="lg" color="warning">Züruck zum Menü</Button>
                             </Col>
                         </Row>
                     </CardBody>

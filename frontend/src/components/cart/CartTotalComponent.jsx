@@ -10,9 +10,11 @@ const CartTotalComponent = () => {
     const { total, client, cartItems, handleCheckout } = useContext(CartContext);
     const API = new Api();
     const alert = useAlert();
+    const navigation = useNavigate();
 
 
     const orderBtnHandler = () => {
+        return navigation("/order/complete", {state: {id: 57}});
         let items = [];
         cartItems.map(item => {
             let i = {product: item.id, qty: item.quantity};
@@ -21,9 +23,10 @@ const CartTotalComponent = () => {
         let data = {client: client, orderitems: items};
         console.log(items);
         API.sendOrder(data)
-            .then(() => {
+            .then((res) => {
                 handleCheckout();
                 alert.success("Ihre Bestellung ist zum Küche gesendet!");
+                navigation.navigate("/order/complete", {order_id: res.data});
             })
             .catch(() => {
                 alert.error("Auf fehler aufgetreten, bitte versuchen Sie noch einmal");

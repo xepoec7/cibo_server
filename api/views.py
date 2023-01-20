@@ -71,8 +71,7 @@ class OrderViewSet(viewsets.ViewSet):
                 item_serializer.save(order=order, product=product)
             else:
                 return Response(status=status.HTTP_502_BAD_GATEWAY)
-        serializer = OrderSerializer(order)
-        return Response(status=status.HTTP_200_OK, data=serializer.data)
+        return Response(status=status.HTTP_200_OK, data=order.id)
 
 
     @action(detail=True, methods=['GET'], name="Accept Order")

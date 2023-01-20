@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+# https://docs.djangoproject.com/en/3.1/ref/settings/#database
 
 DATABASES = {
     'default': {

@@ -95,3 +95,13 @@ class InvoiceItem(models.Model):
     def save(self, *args, **kwargs):
         self.sum = self.product.price * self.qty
         super(InvoiceItem, self).save(*args, **kwargs)
+
+
+class Promo(models.Model):
+    title = models.CharField(max_length=30)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    code = models.CharField(max_length=6, blank=True)
+
+    def __str__(self) -> str:
+        return self.title

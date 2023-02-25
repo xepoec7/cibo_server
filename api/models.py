@@ -79,7 +79,7 @@ class Order(models.Model):
     total = models.DecimalField(max_digits=8, decimal_places=2, blank=True, defualt=0.00)
 
     def __str__(self) -> str:
-	return str(self.id)
+	    return str(self.id)
 
 
 class OrderItem(models.Model):
@@ -89,8 +89,8 @@ class OrderItem(models.Model):
     sum = models.DecimalField(max_digits=8, decimal_places=2, default=0.00, blank=True)
 
     def __str__(self) -> str:
-	return f'{self.product} x{self.qty}'
-
+        return f'{self.product} x{self.qty}'
+    
     def save(self, *args, **kwargs):
-	self.sum = self.product.price * self.qty
-	super(OrderItem, self).save(*args, **kwargs)
+        self.sum = self.product.price * self.qty
+        super(OrderItem, self).save(*args, **kwargs)

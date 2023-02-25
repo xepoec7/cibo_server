@@ -76,7 +76,7 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now=True, blank=True)
     due_time = models.DateTimeField(blank=True, null=True)
     status = models.CharField(max_length=1, choices=STATUS, default='O', blank=True)
-    total = models.DecimalField(max_digits=8, decimal_places=2, blank=True, defualt=0.00)
+    total = models.DecimalField(max_digits=8, decimal_places=2, blank=True, default=0.00)
 
     def __str__(self) -> str:
 	    return str(self.id)

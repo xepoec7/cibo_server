@@ -16,9 +16,13 @@ from pathlib import Path
 from datetime import timedelta
 from rest_framework.settings import api_settings
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+dotenv_path = os.path.join(BASE_DIR, '.env')
+load_dotenv(dotenv_path)
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -89,11 +93,11 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': "cibo_db",
-        'USER': 'cibomysql',
-        'PASSWORD': 'CiboColorato1!',
-        'HOST': '127.0.0.1',
-        'PORT': '3306'
+        'NAME': str(os.getenv('DB_NAME')),
+        'USER': str(os.getenv('DB_USER')),
+        'PASSWORD': str(os.getenv('DB_PASS')),
+        'HOST': str(os.getenv('DB_HOST')),
+        'PORT': str(os.getenv('DB_PORT')),
     }
 }
 

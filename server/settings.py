@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
 from pathlib import Path
 from datetime import timedelta
 from rest_framework.settings import api_settings
@@ -25,12 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-try:
-    SECRET_KEY = os.environ["SECRET_KEY"]
-except KeyError as e:
-    raise RuntimeError("Could not find a SECRET_KEY in environment") from e
-
-#SECRET_KEY = '0263e6e312ada8f4c169538a4b9f2f739d6c13c896d89236b22b7650eee230b2cb5923e4167ed25e'
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -94,8 +90,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': "cibo_db",
-        'USER': 'user',
-        'PASSWORD': 'Toor171187!',
+        'USER': 'cibomysql',
+        'PASSWORD': 'CiboColorato1!',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }

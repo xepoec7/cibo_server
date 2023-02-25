@@ -42,7 +42,7 @@ class Client(models.Model):
 class Invoice(models.Model):
     client = models.ForeignKey("Client", on_delete=models.SET_NULL, null=True)
     created = models.DateTimeField(auto_now=True, blank=True)
-    discount = models.IntegerField(defualt=0, blank=True, null=True)
+    discount = models.IntegerField(default=0, blank=True, null=True)
     total = models.DecimalField(max_digits=8, decimal_places=2, blank=True, default=0.00)
     cash = models.DecimalField(max_digits=8, decimal_places=2, blank=True, default=0.00)
     paid = models.BooleanField(blank=True, default=False)

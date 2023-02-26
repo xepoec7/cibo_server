@@ -94,3 +94,33 @@ class OrderItem(models.Model):
     def save(self, *args, **kwargs):
         self.sum = self.product.price * self.qty
         super(OrderItem, self).save(*args, **kwargs)
+
+
+class PageSettings(models.Model):
+    hero_image = models.ImageField(upload_to="settings_img/", null=True)
+    hero_title = models.CharField(max_length=40)
+    about_us = models.TextField()
+    about_us_image = models.ImageField(upload_to="settings_img/", null=True)
+    pizza_chef_image = models.ImageField(upload_to="settings_img/", null=True)
+    pizza_chef_name = models.CharField(max_length=50)
+    pizza_chef_desc = models.TextField()
+    pizza_chef_quote = models.TextField()
+    our_dishes_text = models.TextField()
+    pizza_image = models.ImageField(upload_to="settings_img/", null=True)
+    pizza_text = models.TextField()
+    panino_image = models.ImageField(upload_to="settings_img/", null=True)
+    panino_text = models.TextField()
+    desert_image = models.ImageField(upload_to="settings_img/", null=True)
+    desert_text = models.TextField()
+    street_name = models.CharField(max_length=60)
+    street_num = models.CharField(max_length=10)
+    postal_and_city = models.CharField(max_length=20)
+    open_mo_fr = models.CharField(max_length=30)
+    open_sat = models.CharField(max_length=30)
+    open_sun = models.CharField(max_length=30)
+    facebook_link = models.CharField(max_length=50)
+    instagram_link = models.CharField(max_length=50)
+    phone = models.CharField(max_length=15)
+
+    def __str__(self) -> str:
+        return "Page Settings"

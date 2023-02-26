@@ -28,9 +28,9 @@ const HomeNav = () => {
                 <Navbar className={navbar ? "navbarVisible" : "navbarTransparent"} color="dark" dark fixed='top' expand="md" container="md">
                     <NavbarBrand className='logo-font' href='/'>Cibo Colorato</NavbarBrand> 
                     <NavbarToggler onClick={toggle} />
-                    <Collapse navbar>
+                    <Collapse navbar className='justify-content-end'>
                         <Nav
-                            className='me-auto justify-content-end text-uppercase'
+                            className='text-uppercase'
                             navbar
                         >
                             <NavItem>
@@ -49,7 +49,7 @@ const HomeNav = () => {
                                 <NavLink href='#contact'>Kontakt</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href='/'>Speisekarte</NavLink>
+                                <NavLink href='/menu'>Speisekarte</NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>

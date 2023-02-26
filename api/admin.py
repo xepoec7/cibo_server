@@ -44,3 +44,8 @@ class ClientAdmin(admin.ModelAdmin):
     list_display= ['name', 'client_type', ]
     list_filter= ['client_type', ]
     search_fields = ('name',)
+
+
+@admin.register(PageSettings)
+class PageSettingsAdmin(admin.ModelAdmin):
+    pass

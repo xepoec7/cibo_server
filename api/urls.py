@@ -1,5 +1,6 @@
 from . import views
 from rest_framework.routers import DefaultRouter
+from django.urls import path
 
 app_name = 'api'
 
@@ -10,4 +11,8 @@ router.register(r'product', views.ProductViewSet, basename='product')
 router.register(r'order', views.OrderViewSet, basename='order')
 router.register(r'invoice', views.InvoiceViewSet, basename='invoice')
 
-urlpatterns = router.urls
+urlpatterns = [
+    path('settings/', views.get_page_settings),
+]
+
+urlpatterns += router.urls

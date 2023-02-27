@@ -25,10 +25,10 @@ const HomeNav = () => {
     return (
         <>
             <header>
-                <Navbar className={navbar ? "navbarVisible" : "navbarTransparent"} color="dark" dark fixed='top' expand="md" container="md">
+                <Navbar className={navbar ? "navbarVisible" : "navbarTransparent"} dark fixed='top' expand="md" container="md">
                     <NavbarBrand className='logo-font' href='/'>Cibo Colorato</NavbarBrand> 
                     <NavbarToggler onClick={toggle} />
-                    <Collapse navbar className='justify-content-end'>
+                    <Collapse isOpen={isOpen} navbar className='justify-content-end'>
                         <Nav
                             className='text-uppercase'
                             navbar
@@ -49,7 +49,7 @@ const HomeNav = () => {
                                 <NavLink href='#contact'>Kontakt</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href='/menu'>Speisekarte</NavLink>
+                                <NavLink className='text-warning' href='/menu'>Speisekarte</NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>

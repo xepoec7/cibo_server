@@ -57,6 +57,7 @@ const MenuListComponent = () => {
             </Row>
             <Row className="row-space-top" sm="2" md="2" lg="4">
                 {products.map(product => (
+                    <Col style={{marginRight: "0px"}}>
                         <Card className="menu-item" key={product.id} color="dark" inverse>
                             <img src={"https://cibocolorato.com"+product.image} alt="img" className="img-fluid" />
                             <hr />
@@ -67,6 +68,7 @@ const MenuListComponent = () => {
                             <CardText>{product.ingredient}</CardText>
                             <br />
                         </Card>
+                    </Col>
                 ))}
             </Row>
         </>

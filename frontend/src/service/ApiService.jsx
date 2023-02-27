@@ -9,7 +9,7 @@ import axios from 'axios';
 export default class Api {
 
     constructor() {
-        this.api_url = "http://127.0.0.1:8000/api";
+        this.api_url = "https://cibocolorato.com/api";
         this.client = null;
     }
 

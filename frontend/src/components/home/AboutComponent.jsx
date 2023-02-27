@@ -13,7 +13,7 @@ const AboutComponent = (props) => {
                 <InView className="hidden" as="div" onChange={(inView, entry) => props.unHide(inView, entry)}>
                     <Row xs="1" md="2" className="align-items-center">
                         <Col>
-                            <img src={"http://127.0.0.1:8000"+ settings.about_us_image} alt="ops" className="img-fluid" />
+                            <img src={"https://cibocolorato.com"+ settings.about_us_image} alt="ops" className="img-fluid" />
                         </Col>
                         <Col className="text-end padd-left-sm">
                             <h3 className="cursive-title">Cibo Colorato</h3>

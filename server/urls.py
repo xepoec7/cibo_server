@@ -24,9 +24,9 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
     #path('', include('frontend.urls', namespace='frontend')),
-    path('admin/', admin.site.urls),
-    path('api/', include('api.urls', namespace='api')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v1/admin/', admin.site.urls),
+    path('api/v1/', include('api.urls', namespace='api')),
+    path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

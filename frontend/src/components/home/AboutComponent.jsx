@@ -44,7 +44,7 @@ const AboutComponent = (props) => {
                             </figure>
                         </Col>
                         <Col className="text-end padd-left-sm">
-                            <img src={"http://127.0.0.1:8000"+settings.pizza_chef_image} alt="chef" className="img-fluid" />
+                            <img src={"https://cibocolorato.com"+settings.pizza_chef_image} alt="chef" className="img-fluid" />
                         </Col>
                     </Row>
                 </InView>   

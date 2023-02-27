@@ -31,7 +31,7 @@ const DishesComponent = (props) => {
                 <Row xs="1" md="2" className="align-items-center">
                     <Col className="text-center">
                         <InView className="hidden" as="div" onChange={(inView, entry) => unHideRotate(inView, entry)}>
-                            <img src={"http://127.0.0.1:8000"+settings.pizza_image} alt="pizza" className="img-fluid" />
+                            <img src={"https://cibocolorato.com"+settings.pizza_image} alt="pizza" className="img-fluid" />
                         </InView> 
                     </Col>
                     <Col>
@@ -55,7 +55,7 @@ const DishesComponent = (props) => {
                     </Col>
                     <Col className="text-center">
                         <InView className="hidden" as="div" onChange={(inView, entry) => unHideRotate(inView, entry)}>
-                            <img src={"http://127.0.0.1:8000"+settings.panino_image} alt="panino" className="img-fluid" />
+                            <img src={"https://cibocolorato.com"+settings.panino_image} alt="panino" className="img-fluid" />
                         </InView>
                     </Col>
                 </Row>
@@ -71,7 +71,7 @@ const DishesComponent = (props) => {
                 <Row xs="1" md="2" className="align-items-center">
                     <Col className="text-center">
                         <InView className="hidden" as="div" onChange={(inView, entry) => unHideRotate(inView, entry)}>
-                            <img src={"http://127.0.0.1:8000"+settings.desert_image} alt="desert" className="img-fluid" />
+                            <img src={"https://cibocolorato.com"+settings.desert_image} alt="desert" className="img-fluid" />
                         </InView>
                     </Col>
                     <Col>

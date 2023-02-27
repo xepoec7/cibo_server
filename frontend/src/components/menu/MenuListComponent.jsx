@@ -58,7 +58,7 @@ const MenuListComponent = () => {
             <Row className="row-space-top" sm="2" md="2" lg="4">
                 {products.map(product => (
                         <Card className="menu-item" key={product.id} color="dark" inverse>
-                            <img src={"http://127.0.0.1:8000"+product.image} alt="img" className="img-fluid" />
+                            <img src={"https://cibocolorato.com"+product.image} alt="img" className="img-fluid" />
                             <hr />
                             <CardTitle>
                                 <b className="text-warning">{product.name}</b>

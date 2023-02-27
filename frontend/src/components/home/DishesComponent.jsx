@@ -28,7 +28,7 @@ const DishesComponent = (props) => {
                     </Col>
                 </Row>
 
-                <Row xs="1" md="2" className="align-items-center">
+                <Row xs="1" md="2" className="align-items-center row-space-top">
                     <Col className="text-center">
                         <InView className="hidden" as="div" onChange={(inView, entry) => unHideRotate(inView, entry)}>
                             <img src={"https://cibocolorato.com"+settings.pizza_image} alt="pizza" className="img-fluid" />
@@ -75,7 +75,7 @@ const DishesComponent = (props) => {
                         </InView>
                     </Col>
                     <Col>
-                        <h2 className="cursive-title">Desert</h2>
+                        <h2 className="cursive-title">Dessert</h2>
                         <p>{settings.desert_text}</p>
                     </Col>
                 </Row>

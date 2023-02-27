@@ -19,6 +19,9 @@ section {
 a, a label {
   cursor: pointer;
 }
+footer {
+  background-color: #000;
+}
 
 .logo-font {
   font-family: 'Dancing Script', cursive;

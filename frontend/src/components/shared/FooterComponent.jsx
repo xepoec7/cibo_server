@@ -18,8 +18,8 @@ const FooterComponent = () => {
     return (
         <footer>
             <Container>
-                <hr />
-                <Row xs="1" sm="2" md="4">
+                <br />
+                <Row className="row-space-top" xs="1" sm="2" md="4">
                     <Col>
                         <h5 className="text-warning">Lokation</h5>
                         <List type="unstyled">
@@ -52,6 +52,7 @@ const FooterComponent = () => {
                         </List>
                     </Col>
                 </Row>
+                <br />
             </Container>
         </footer>
     )

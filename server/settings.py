@@ -36,6 +36,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ["https://cibocolorato.com", "https://www.cibocolorato.com"]
 
 
 # Application definition

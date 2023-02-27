@@ -8,7 +8,7 @@ const HeroCompoent = (props) => {
             <Container fluid>
                 <Row>
                     <Col className="hero-text text-center">
-                        <h1 className="hero-title text-uppercase">
+                        <h1 className="hero-title text-warning">
                             {props.pageSettings.hero_title}
                         </h1>
                     </Col>

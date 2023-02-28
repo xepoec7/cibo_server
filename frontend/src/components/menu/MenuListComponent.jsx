@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardText, CardTitle, Col, Nav, NavItem, NavLink, Row } from 'reactstrap';
+import { Card, CardBody, CardFooter, CardText, CardTitle, Col, Nav, NavItem, NavLink, Row } from 'reactstrap';
 import Api from '../../service/ApiService';
 
 
@@ -55,18 +55,23 @@ const MenuListComponent = () => {
                     </Nav>
                 </Col>
             </Row>
-            <Row className="row-space-top" sm="2" md="2" lg="4">
+            <Row className="row-space-top" xs="2" md="2" lg="4">
                 {products.map(product => (
-                    <Col style={{marginRight: "0px"}}>
-                        <Card className="menu-item" key={product.id} color="dark" inverse>
-                            <img src={"https://cibocolorato.com"+product.image} alt="img" className="img-fluid" />
-                            <hr />
-                            <CardTitle>
-                                <b className="text-warning">{product.name}</b>
+                    <Col key={product.id}>
+                        <Card className="menu-item" key={product.id} color="dark" inverse >
+                            <div className="text-center">
+                                <img src={"https://cibocolorato.com"+product.image} alt="img" className="img-fluid" width="150" />
+                                <hr />
+                            </div>
+                            <CardBody>
+                                <CardTitle>
+                                    <b className="text-warning">{product.name}</b>
+                                </CardTitle>
+                                <CardText>{product.ingredient}</CardText>
+                            </CardBody>
+                            <CardFooter>
                                 <p className="float-end">{product.price} €</p>
-                            </CardTitle>
-                            <CardText>{product.ingredient}</CardText>
-                            <br />
+                            </CardFooter>
                         </Card>
                     </Col>
                 ))}

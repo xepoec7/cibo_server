@@ -81,10 +81,10 @@ footer {
 }
 .unHide {
   opacity: 100;
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -o-transition: all 1s ease;
-  transition: all 1s ease;
+  -webkit-transition: all 6s ease;
+  -moz-transition: all 6s ease;
+  -o-transition: all 6s ease;
+  transition: all 6s ease;
 }
 .rotate {
   transform: rotate(180deg);

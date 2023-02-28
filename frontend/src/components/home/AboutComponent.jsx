@@ -7,6 +7,7 @@ const AboutComponent = (props) => {
 
     const settings = props.pageSettings;
 
+
     return (
         <Container>
             <section id="about">

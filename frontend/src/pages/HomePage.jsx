@@ -22,7 +22,7 @@ const HomePage = () => {
 
     const unHide = (inView, entry) => {
         if (inView) {
-            entry.target.classList.remove("hidden");
+            entry.target.classList.add("unHide");
         }
     }
 

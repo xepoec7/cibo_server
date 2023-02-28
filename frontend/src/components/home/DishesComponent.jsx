@@ -9,9 +9,10 @@ const DishesComponent = (props) => {
     const settings = props.pageSettings;
 
     const unHideRotate = (inView, entry) => {
-        entry.target.classList.remove('hidden');
-        entry.target.classList.add('unHide');
+        if (inView) {
+            entry.target.classList.add('unHide');
         entry.target.classList.add('rotate');
+        }
     }
 
     return (

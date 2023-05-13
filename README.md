@@ -1,4 +1,4 @@
-# Cibo_Server
+# Cibo Server
 
 This is a Django / React Project created for a small restaurant business.
 

@@ -23,6 +23,7 @@ The steps in this document assume you have access to private server to deploy an
     `gunicorn -c /config/prod.py`
 
 5. Restart Nginx:
+
     `sudo systemctl restart nginx`
 
 6. Open broweser and go to address you have configurated in your nginx config file

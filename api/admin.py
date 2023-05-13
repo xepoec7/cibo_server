@@ -49,3 +49,13 @@ class ClientAdmin(admin.ModelAdmin):
 @admin.register(PageSettings)
 class PageSettingsAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Additions)
+class AdditionsAdmin(admin.ModelAdmin):
+    list_display = ['name', 'price']
+
+
+@admin.register(OrderItemAddition)
+class OrderItemAdditionAdmin(admin.ModelAdmin):
+    pass

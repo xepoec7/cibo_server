@@ -1,7 +1,7 @@
 import decimal
 from rest_framework import serializers
 
-from api.models import Invoice, InvoiceItem, Product, Category, Order, OrderItem, PageSettings
+from api.models import Invoice, InvoiceItem, Product, Category, Order, OrderItem, PageSettings, OrderItemAddition, Additions
 
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
@@ -33,7 +33,7 @@ class InvoiceSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Invoice
-        fields = ['id', 'client', 'created', 'total', 'cash', "paid", "items",]
+        fields = ['id', 'order', 'orderNr', 'client', 'created', 'total', 'cash', "paid", "items",]
 
     def create(self, validated_data):
         return Invoice.objects.create(**validated_data)
@@ -43,16 +43,32 @@ class InvoiceSerializer(serializers.HyperlinkedModelSerializer):
         instance.paid = validated_data.get('paid')
         instance.save()
         return instance
+    
+
+
+class OrderItemAdditionalSerializer(serializers.ModelSerializer):
+    order_item = serializers.StringRelatedField()
+    addition = serializers.StringRelatedField()
+
+    class Meta:
+        model = OrderItemAddition
+        fields = ['order_item','addition', 'addTo']
+
+
+    def create(self, validated_data):
+        print(validated_data)
+        return OrderItemAddition.objects.create(**validated_data)
 
 
 
 
 class OrderItemSerializer(serializers.HyperlinkedModelSerializer):
     product = serializers.StringRelatedField()
+    addition = OrderItemAdditionalSerializer(many=True, required=False)
 
     class Meta:
         model = OrderItem
-        fields = ['product', 'qty',]
+        fields = ['product', 'qty', 'addition']
 
     def create(self, validated_data):
         order = validated_data['order']
@@ -70,7 +86,7 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['id', 'client', 'created', 'due_time', 'status', 'orderitems']
+        fields = ['id', 'orderNr', 'client', 'created', 'due_time', 'status', 'orderitems']
 
     def create(self, validated_data):
         print(validated_data)
@@ -81,4 +97,12 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
 class PageSettingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = PageSettings
+        fields = '__all__'
+
+
+
+
+class AdditionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Additions
         fields = '__all__'

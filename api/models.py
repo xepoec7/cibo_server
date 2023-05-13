@@ -5,6 +5,7 @@ from django.conf import settings
 class Category(models.Model):
     name = models.CharField(max_length=30, unique=True)
     img = models.ImageField(upload_to="imgs/", blank=True, null=True)
+    showOnMenu = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return self.name
@@ -40,6 +41,8 @@ class Client(models.Model):
 
 
 class Invoice(models.Model):
+    orderNr = models.PositiveIntegerField(default=0)
+    order = models.IntegerField(default=0)
     client = models.ForeignKey("Client", on_delete=models.SET_NULL, null=True)
     created = models.DateTimeField(auto_now=True, blank=True)
     discount = models.IntegerField(default=0, blank=True, null=True)
@@ -67,11 +70,12 @@ class InvoiceItem(models.Model):
 
 class Order(models.Model):
     STATUS = [
-	('O', 'Offen'),
-	('A', 'Akzeptiert'),
-	('V', 'Verweigert'),
-	('F', 'Fertig'),
+        ('O', 'Offen'),
+        ('A', 'Akzeptiert'),
+        ('V', 'Verweigert'),
+        ('F', 'Fertig'),
     ]
+    orderNr = models.PositiveIntegerField(default=1)
     client = models.ForeignKey('Client', on_delete=models.SET_NULL, null=True)
     created = models.DateTimeField(auto_now=True, blank=True)
     due_time = models.DateTimeField(blank=True, null=True)
@@ -80,10 +84,18 @@ class Order(models.Model):
 
     def __str__(self) -> str:
 	    return str(self.id)
+    
+
+class Additions(models.Model):
+    name = models.CharField(max_length=30)
+    price = models.DecimalField(max_digits=4, decimal_places=2, default=0.00)
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey("Order", related_name="orderitems", on_delete=models.CASCADE)
+    order = models.ForeignKey("Order", related_name="orderitems", on_delete=models.CASCADE, null=True)
     product = models.ForeignKey("Product", on_delete=models.CASCADE)
     qty = models.IntegerField(blank=True, default=1)
     sum = models.DecimalField(max_digits=8, decimal_places=2, default=0.00, blank=True)
@@ -94,6 +106,15 @@ class OrderItem(models.Model):
     def save(self, *args, **kwargs):
         self.sum = self.product.price * self.qty
         super(OrderItem, self).save(*args, **kwargs)
+
+
+class OrderItemAddition(models.Model):
+    orderItem = models.ForeignKey("OrderItem", related_name='addition', on_delete=models.CASCADE, null=True)
+    addition = models.ForeignKey("Additions", on_delete=models.CASCADE)
+    addTo = models.BooleanField(default=True, blank=True)
+
+    def __str__(self) -> str:
+        return self.addition.name
 
 
 class PageSettings(models.Model):

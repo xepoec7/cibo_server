@@ -9,7 +9,7 @@ import axios from 'axios';
 export default class Api {
 
     constructor() {
-        this.api_url = "https://cibocolorato.com/api/v1";
+        this.api_url = "http://localhost:8000/api/v1";
         this.client = null;
     }
 
@@ -64,5 +64,9 @@ export default class Api {
 
     applyPromo = (order_id, promo) => {
         return this.init().get(`/order/${order_id}/discount/${promo}`);
+    }
+
+    getOrders = () => {
+        return this.init().get('/get/orders/');
     }
 }

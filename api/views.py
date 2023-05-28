@@ -8,6 +8,13 @@ from api.models import *
 from api.serializers import *
 
 
+@api_view(['GET'])
+def get_tables(request):
+    clients = Client.objects.filter(client_type="tbl")
+    serializer = ClientSerializer(clients, many=True)
+    return Response(serializer.data)
+
+
 class CategoryViewSet(viewsets.ViewSet):
     """
     Category Viewset
@@ -66,7 +73,7 @@ class OrderViewSet(viewsets.ViewSet):
 
     def list(self, request):
         """ List of all open Orders """
-        queryset = Order.objects.filter(status='O')
+        queryset = Order.objects.filter(status='A')
         serializer = OrderSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -82,10 +89,10 @@ class OrderViewSet(viewsets.ViewSet):
     def create(self, request):
         """ Create new Order """
         client_data = request.data['client']
-        client = Client.objects.get(name=client_data)
+        client = Client.objects.get(id=client_data)
         order = Order(client=client)
         for i in range(1, 100):
-            if not Order.objects.filter(orderNr=i, status="O").exists():
+            if not Order.objects.filter(orderNr=i, status="A").exists() and not Invoice.objects.filter(orderNr=i, paid=False):
                 order.orderNr = i
                 break
         order.save()
@@ -122,23 +129,32 @@ class OrderViewSet(viewsets.ViewSet):
         order = get_object_or_404(queryset, pk=pk)
         order.status = 'A'
         order.save()
+        return Response(status=status.HTTP_200_OK)
+    
+
+    @action(detail=True, methods=['GET'], name="Done")
+    def done(self, requst, pk=None):
+        queryset = Order.objects.all()
+        order = get_object_or_404(queryset, pk=pk)
+        order.status = 'F'
+        order.save()
         invoice = None
         try:
-            invoice = Invoice.objects.get(client=order.client, paid=False)
+            if order.client.client_type != "taw":
+                invoice = Invoice.objects.get(client=order.client, paid=False)
+            else:
+                raise Invoice.DoesNotExist
         except Invoice.DoesNotExist:
             invoice = Invoice(orderNr=order.orderNr, order=order.id, client=order.client, total=order.total)
             invoice.save()
         try:
             order_items = OrderItem.objects.filter(order=order)
             for order_item in order_items:
-                adds = OrderItemAddition.objects.filter(orderItem=order_item)
-                for add in adds:
-                    if add.addTo:
-                        product = Product.objects.get(price=add.addition.price)
-                        inv_item = InvoiceItem(invoice=invoice, product=product, qty=1)
-                        inv_item.save()
-                        invoice.total += product.price
-                        invoice.save()
+                inv_item = InvoiceItem(invoice=invoice, product=order_item.product, qty=order_item.qty)
+                inv_item.save()
+                invoice.total += order_item.qty * order_item.product.price
+                invoice.save()
+
                 invoice_items = InvoiceItem.objects.filter(invoice=invoice)
                 invoice_item = next((item for item in invoice_items if item.product == order_item.product), None)
                 if invoice_item is not None:
@@ -147,7 +163,7 @@ class OrderViewSet(viewsets.ViewSet):
                 else:
                     invoice_item = InvoiceItem(invoice=invoice, product=order_item.product, qty=order_item.qty, sum=order_item.qty * order_item.product.price)
                     invoice_item.save()
-        except Exception as exp:
+        except Exception as exp:        
             print(exp)
             return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
         return Response(status=status.HTTP_200_OK, data=invoice.id)
@@ -159,15 +175,6 @@ class OrderViewSet(viewsets.ViewSet):
         queryset = Order.objects.all()
         order = get_object_or_404(queryset, pk=pk)
         return Response(order.status)
-
-
-    @action(detail=True, methods=['GET'], name="Done")
-    def done(self, requst, pk=None):
-        queryset = Order.objects.all()
-        order = get_object_or_404(queryset, pk=pk)
-        order.status = "F"
-        order.save()
-        return Response(status=status.HTTP_200_OK)
     
 
     @action(detail=True, methods=['GET'], name="Delete")
@@ -177,6 +184,15 @@ class OrderViewSet(viewsets.ViewSet):
         order.delete()
         return Response(status=status.HTTP_200_OK)
     
+
+    @action(detail=False, methods=['GET'], name="Open")
+    def open(self, request):
+        queryset = Order.objects.filter(status="O")
+        if queryset:
+            serializer = OrderSerializer(queryset, many=True)
+            return Response(serializer.data)
+        else: 
+            return Response([])
 
 
 
@@ -256,3 +272,16 @@ def get_page_settings(request):
     settings = PageSettings.objects.all().first()
     serializer = PageSettingsSerializer(settings)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_orders(request):
+    open_orders = Order.objects.filter(status="A")
+    done_orders = Invoice.objects.filter(paid=False)
+    o_serializer = OrderSerializer(open_orders, many=True)
+    d_serializer = InvoiceSerializer(done_orders, many=True)
+    resp = {
+        "open" : o_serializer.data,
+        "done" : d_serializer.data,
+    }
+    return Response(resp)

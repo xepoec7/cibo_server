@@ -14,6 +14,8 @@ router.register(r'addition', views.AdditionsViewSet, basename='addition')
 
 urlpatterns = [
     path('settings/', views.get_page_settings),
+    path('table/', views.get_tables),
+    path('get/orders/', views.get_orders),
 ]
 
 urlpatterns += router.urls

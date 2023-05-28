@@ -1,7 +1,13 @@
 import decimal
 from rest_framework import serializers
 
-from api.models import Invoice, InvoiceItem, Product, Category, Order, OrderItem, PageSettings, OrderItemAddition, Additions
+from api.models import *
+
+
+class ClientSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Client
+        fields = ['id', 'client_type', 'name']
 
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
@@ -11,7 +17,7 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
-    category = serializers.StringRelatedField()
+    category = CategorySerializer()
 
     class Meta:
         model = Product

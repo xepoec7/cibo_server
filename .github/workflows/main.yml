@@ -19,7 +19,7 @@ jobs:
           PORT: 22
           KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "."
-          target: "/app/"
+          target: "/cibo_server/"
 
   dependencies:
     needs: deployment
